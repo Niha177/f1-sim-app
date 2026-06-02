@@ -92,12 +92,4 @@ export async function qualifyResults(year) {
     
 }
 
-
-
-//uploadQualifyResults()
-//2022 DONE
-//2023 DONE
-//2024 DONE
-//2025 DONE
-//2026
-qualifyResults(2026)
+uploadQualifyResults()

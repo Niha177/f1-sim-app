@@ -8,9 +8,9 @@ async function deletefun() {
         driver: sqlite3.Database
 
     })
-   await db.exec("DELETE FROM qualifying_results")
+   await db.exec("DELETE FROM race_results")
    console.log("success")
    await db.close();
     
 }
-deletefun()
+//deletefun()

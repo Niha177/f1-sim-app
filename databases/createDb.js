@@ -80,7 +80,11 @@ async function test() {
     console.log("all good")
 }
 
-test()
+//test()
+
+//createDB()
+
+modify()
 
 
 
