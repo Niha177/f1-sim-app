@@ -48,3 +48,39 @@ async function createDB() {
 
 
 
+async function modify() {
+
+    const db = await open({
+        filename: path.join("rawDatabase.db"),
+        driver: sqlite3.Database
+
+    })
+    await db.exec(`
+        ALTER TABLE race_results ADD COLUMN constructorId TEXT
+        `)
+    await db.close()
+    console.log("tables created")
+
+}
+
+//modify()
+
+
+async function test() {
+    const db = await open({
+        filename: path.join("rawDatabase.db"),
+        driver: sqlite3.Database
+
+    })
+
+    await db.run(`
+                INSERT INTO race_results (season, round, circuitId, driverId, grid, position, status, constructorId)
+                VALUES (?,?,?,?,?,?,?,?)`,
+            [2024, 1, "monza", "hamilton", 3, 2, "Finsihed", "ferrari"])
+    console.log("all good")
+}
+
+test()
+
+
+
