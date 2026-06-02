@@ -1,5 +1,5 @@
 import {dbcon} from "../db.js"
-import {finalTrackIndex} from "../circuits_category.js"
+import {finalTrackIndex} from "../databases/circuits_category.js"
 
 
 export async function uploadCircuitData() {

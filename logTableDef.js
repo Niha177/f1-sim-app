@@ -9,10 +9,10 @@ async function viewAll() {
   });
 
   try { 
-    const products = await db.all('SELECT * FROM race_results')
+    const products = await db.all('SELECT * FROM qualifying_results')
     // Neater table display
-    const displayItems = products.map(({ season, round, circuitId, driverId, grid, position, status, constructorId }) => {
-      return { season, round, circuitId, driverId, grid, position, status, constructorId }
+    const displayItems = products.map(({ season, round, driverId, position}) => {
+      return { season, round, driverId, position }
     })
     console.table(displayItems)
   } catch (err) {
