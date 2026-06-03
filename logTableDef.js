@@ -42,5 +42,5 @@ async function viewAllFinal() {
   }
 }
 
-//viewQual()
-viewAllFinal()
+viewQual()
+//viewAllFinal()
