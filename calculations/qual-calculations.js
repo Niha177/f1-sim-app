@@ -1,6 +1,6 @@
 import {dbcon} from "../db.js"
 
-export async function qualifyingDataSIM(driverId, season, round) { //full season form
+export async function driverQualifyingForm(driverId, season, round) { //full season form
 
     console.log("starting")
     
@@ -109,7 +109,7 @@ export async function qualifyingDataSIM(driverId, season, round) { //full season
 export async function calculateQualifying(driverId, season, round) {
 
     try {
-        const {data} =  await qualifyingDataSIM(driverId, season, round)
+        const {data} =  await driverQualifyingForm(driverId, season, round)
         let len = data.length
 
         let sum = 0;
@@ -131,7 +131,7 @@ export async function calculateQualifying(driverId, season, round) {
 
 }
 
-//calculateQualifying('leclerc', 2026, 5)
+calculateQualifying('ricciardo', 2025, 5)
 
-
+//ADD ERROR HANDELING AND TESTING
 
