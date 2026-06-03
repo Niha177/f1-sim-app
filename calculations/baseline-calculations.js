@@ -20,12 +20,14 @@ export async function teammateBaseline(driverID, season, round) {
         LIMIT 1
    ) 
     AND season = ?
-    AND driverId != ?`
+    AND driverId != ?
+    
+    GROUP BY driverId
+    ORDER BY COUNT(*) DESC
+    `
 
      try {
          drivers = await db.all(driverSql, [driverID, season, season, driverID])
-
-        
 
     } catch (error) {
         console.log(error)
@@ -35,8 +37,8 @@ export async function teammateBaseline(driverID, season, round) {
     const driverA = driverID
    const driverB = drivers[0].driverId
 
-   const {data: dataDriverA} = await driverQualifyingForm(driverA, season, round)
-   const {data: dataDriverB} = await driverQualifyingForm(driverB, season, round)
+   const {data: dataDriverA} = await driverQualifyingForm(driverA, season, round, "race_results", "position")
+   const {data: dataDriverB} = await driverQualifyingForm(driverB, season, round, "race_results", "position")
 
    return ({
     driverDataA: dataDriverA,
@@ -78,14 +80,18 @@ export async function calculateTeammateBaseline(driverID, season, round) {
 
    let TBR = wins/totalRaces
 
-   console.log(driverDataA)
-   console.log(driverDataB)
+  // console.log(driverDataA)
+   //console.log(driverDataB)
 
-   console.log(TBR)
+   //onsole.log(TBR)
    return TBR
 
 }
 
-//calculateTeammateBaseline("piastri", 2025, 5)
+//
+//calculateTeammateBaseline("colapinto", 2025, 20)
+//calculateTeammateBaseline("magnussen", 2025, 20)
+//CHECK accuracy of this
 
 //ADD ERROR HANDELING AND TESTING
+

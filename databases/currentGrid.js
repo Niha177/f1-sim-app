@@ -1,0 +1,25 @@
+export let gridCurrent = 
+[
+    {driverId: "max_verstappen"},
+    {driverId: "hadjar"},
+    {driverId: "leclerc"},
+    {driverId: "hamilton"},
+    {driverId: "norris"},
+    {driverId: "piastri"},
+    {driverId: "russell"},
+    {driverId: "antonelli"},
+    {driverId: "alonso"},
+    {driverId: "stroll"},
+    {driverId: "gasly"},
+    {driverId: "colapinto"},
+    {driverId: "ocon"},
+    {driverId: "bearman"},
+    {driverId: "arvid_lindblad"},
+    {driverId: "lawson"},
+    {driverId: "sainz"},
+    {driverId: "albon"},
+    {driverId: "hulkenberg"},
+    {driverId: "bortoleto"},
+    {driverId: "bottas"},
+    {driverId: "perez"}
+]

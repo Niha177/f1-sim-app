@@ -1,8 +1,8 @@
 import {dbcon} from "../db.js"
 
-export async function driverQualifyingForm(driverId, season, round) { //full season form
+export async function driverQualifyingForm(driverId, season, round, dbTable, posType) { //full season form
 
-    console.log("starting")
+    //console.log("starting")
     
 
     const db = await dbcon()
@@ -44,21 +44,21 @@ export async function driverQualifyingForm(driverId, season, round) { //full sea
 
 
         sql =  `
-    SELECT position 
+    SELECT ${posType}
     FROM (
-        SELECT position 
-        FROM qualifying_results
+        SELECT ${posType} 
+        FROM ${dbTable}
         WHERE driverId = ? AND season = ?
         ORDER BY round DESC
         LIMIT ?
     )
     
     UNION ALL
-    
-    SELECT position 
+
+    SELECT ${posType}
     FROM (
-        SELECT position 
-        FROM qualifying_results
+        SELECT ${posType}
+        FROM ${dbTable}
         WHERE driverId = ? AND season = ?
         AND round < ?
         ORDER BY round DESC 
@@ -76,12 +76,11 @@ export async function driverQualifyingForm(driverId, season, round) { //full sea
 
     params = [driverId, season, prevRound, round]
 
-    sql = `SELECT position
-        FROM qualifying_results
+    sql = `SELECT ${posType}
+        FROM ${dbTable}
         WHERE driverId = ? 
         AND season = ?
         AND round BETWEEN ? AND ?
-
         ORDER BY round ASC
         LIMIT 5
         `
@@ -108,8 +107,10 @@ export async function driverQualifyingForm(driverId, season, round) { //full sea
 
 export async function calculateQualifying(driverId, season, round) {
 
+    let qf
+
     try {
-        const {data} =  await driverQualifyingForm(driverId, season, round)
+        const {data} =  await driverQualifyingForm(driverId, season, round, "qualifying_results", "position")
         let len = data.length
 
         let sum = 0;
@@ -117,10 +118,10 @@ export async function calculateQualifying(driverId, season, round) {
             sum += position
         }
 
-        let qf = sum/len
+         qf = sum/len
 
-    console.log(qf)
-    console.log(data)
+    //console.log(qf)
+    //onsole.log(data)
     
 
     } catch(err) {
@@ -128,10 +129,11 @@ export async function calculateQualifying(driverId, season, round) {
     }
     
 
+    return qf
 
 }
 
-calculateQualifying('ricciardo', 2025, 5)
+//calculateQualifying('norris', 2024, 10)
 
 //ADD ERROR HANDELING AND TESTING
 

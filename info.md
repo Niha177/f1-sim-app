@@ -1,0 +1,1 @@
+- Formula used: weighted scoring model 
