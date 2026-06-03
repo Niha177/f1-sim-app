@@ -6,7 +6,7 @@ export async function qualifyingDataSIM(driverId, season, round) { //full season
     
 
     const db = await dbcon()
-    console.log(db)
+
     let roundsPrev = 0;
     let roundsCur = 0;
 
@@ -15,7 +15,7 @@ export async function qualifyingDataSIM(driverId, season, round) { //full season
 
    let params = []
 
-   //fetch number of rounds here
+
    try {
     const response = await fetch(`https://api.jolpi.ca/ergast/f1/${season}/`)
     const data = await response.json()
@@ -34,15 +34,14 @@ export async function qualifyingDataSIM(driverId, season, round) { //full season
         console.log(err)
    }
 
-    console.log("passed")
+    
     let sql;
 
    if(round <= 5) {
 
-        curLimit = round - 1 //2
-        prevLimit = 5 - curLimit //3
+        curLimit = round - 1 
+        prevLimit = 5 - curLimit 
 
-       
 
         sql =  `
     SELECT position 
@@ -89,57 +88,11 @@ export async function qualifyingDataSIM(driverId, season, round) { //full season
         
    }
 
-   
-    
-   /*
-   const sql = `
-        SELECT position
-        FROM qualifying_results
-        WHERE driverId = ? AND season BETWEEN ? AND ?`
-
-        
-
-    //-------------------------------------
-     sql = `
-    SELECT position 
-    FROM (
-        SELECT position 
-        FROM qualifying_results
-        WHERE driverId = ? AND season = ?
-        ORDER BY round DESC
-        LIMIT ?
-    )
-    
-    UNION ALL
-    
-    SELECT position 
-    FROM (
-        SELECT position 
-        FROM qualifying_results
-        WHERE driverId = ? AND season = ?
-        ORDER BY round ASC 
-        LIMIT ?
-    )
-    `
-    */
-    //-------------------------------------
-
     try {
         const results = await db.all(sql, params)
-        let len = results.length
-        let sum = 0;
-        let QF;
-
-        for(const {position} of results) {
-            sum += position
-        }
-         QF = sum/len
-
-          console.log("at return")
-
+      
          return({
             data: results,
-            qf: QF
          })
 
 
@@ -148,45 +101,6 @@ export async function qualifyingDataSIM(driverId, season, round) { //full season
 
     }
     
-  
-   /*
-    return new Promise( (resolve, reject) => {
-        let sum = 0;
-        let length = 0;
-        let QF;
-
-        console.log("entered in function")
-        
-        //ok up until here
-
-         db.all(sql, params, (err, results) => {
-            console.log("at resolve")
-            
-        if(err) {
-            console.log("error with query")
-            return reject(err);
-        } 
-
-        
-        //calculations
-        length = results.length
-        
-
-        for(const {position} of results) {
-            sum += position
-        }
-         QF = sum/length
-
-         
-         resolve({
-            data: results,
-            qf: QF
-         }) //returning the qf
-    })
-
-})
-    */
- 
 
 }
 
@@ -195,7 +109,15 @@ export async function qualifyingDataSIM(driverId, season, round) { //full season
 export async function calculateQualifying(driverId, season, round) {
 
     try {
-        const {data, qf} =  await qualifyingDataSIM(driverId, season, round)
+        const {data} =  await qualifyingDataSIM(driverId, season, round)
+        let len = data.length
+
+        let sum = 0;
+        for(const {position} of data) {
+            sum += position
+        }
+
+        let qf = sum/len
 
     console.log(qf)
     console.log(data)
@@ -209,7 +131,7 @@ export async function calculateQualifying(driverId, season, round) {
 
 }
 
-calculateQualifying('leclerc', 2026, 5)
+//calculateQualifying('leclerc', 2026, 5)
 
 
 
