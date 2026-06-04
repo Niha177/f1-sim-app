@@ -2,7 +2,7 @@ import {dbcon} from "../db.js"
 
 export async function driverQualifyingForm(driverId, season, round, dbTable, posType) { //full season form
 
-    //console.log("starting")
+    console.log("starting")
     
 
     const db = await dbcon()

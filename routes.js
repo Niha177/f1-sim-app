@@ -1,12 +1,18 @@
 import express from "express"
+import {orderedPositions} from "./calculations/orderedPositions.js"
 
 export const apiApp = express.Router()
 
-apiApp.get("/results/race", raceResults)
+apiApp.post("/race/prediction", getRacePrediction)
 //apiApp.get("/results/qualifying")
 
-export async function raceResults(req, res) {
-    const results = ""
+export async function getRacePrediction(req, res) {
+
+    const {season, wantedRound} = req.body
+
+    const data = await orderedPositions(season, wantedRound)
+    res.json(data)
+
     console.log("h")
 }
     

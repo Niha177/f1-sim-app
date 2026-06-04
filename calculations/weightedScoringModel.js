@@ -52,7 +52,7 @@ try{
     for(let x = 0; x < driverGrid.length; x++) {
 
        try{
-            console.log(driverGrid[x].driverId + ":" + await weightedScoreingModel(driverGrid[x].driverId, season, wantedRound))
+            //console.log(driverGrid[x].driverId + ":" + await weightedScoreingModel(driverGrid[x].driverId, season, wantedRound))
 
         let cur = await weightedScoreingModel(driverGrid[x].driverId, season, wantedRound)
 
@@ -62,7 +62,7 @@ try{
             console.log("ommited  " + driverGrid[x].driverId)
        }
         
-        await delay(1000); 
+        await delay(500); 
        
     }
 
@@ -72,9 +72,10 @@ try{
         console.log(err)
     }
 
-    console.log(data)
+    //console.log(data)
+
     return data
 
 }
 
-predictGrid(2026, 6)
+//predictGrid(2026, 6)
